@@ -199,7 +199,7 @@ mp::QemuVirtualMachine::QemuVirtualMachine(const VirtualMachineDescription& desc
         Qt::QueuedConnection);
 
     // The following is the actual code to reset the network via QMP if an IP address is not obtained after
-    // starting from suspend.  This will probably be deprecated in the future.
+    // starting from suspend. TODO: remove this in the future.
     QObject::connect(
         this, &QemuVirtualMachine::on_reset_network, this,
         [this] {
@@ -415,7 +415,7 @@ void mp::QemuVirtualMachine::ensure_vm_is_running()
         // Due to https://github.com/canonical/multipass/issues/2374, the DHCP address is removed from
         // the dnsmasq leases file, so if the daemon restarts while an instance is suspended and then
         // starts the instance, the daemon won't be able to reach the instance since the instance
-        // won't refresh it's IP address.  The following will force the instance to refresh by resetting
+        // won't refresh its IP address.  The following will force the instance to refresh by resetting
         // the network every 30 seconds until the start timoeut is reached.
         if (std::chrono::steady_clock::now() > current_resume_start_time + 30s)
         {
